@@ -1,0 +1,35 @@
+name: Build Flipper App
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install uFBT (Flipper build tool)
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install flipperzero-ufbt
+
+      - name: Build App
+        run: |
+          ufbt init
+          ufbt fap
+
+      - name: Upload .fap file
+        uses: actions/upload-artifact@v3
+        with:
+          name: flipper_arrow.fap
+          path: build/f7-firmware-D/.extapps/*.fap
