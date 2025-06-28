@@ -26,7 +26,6 @@ jobs:
           mkdir -p flipperzero-firmware/applications_user/flipper_arrow
           cp flipper_arrow.c music.c music.h flipperzero-firmware/applications_user/flipper_arrow/
           cp CMakeLists.txt flipperzero-firmware/applications_user/flipper_arrow/CMakeLists.txt
-
       - name: Register app in CMake
         run: |
           echo 'add_subdirectory(flipper_arrow)' >> flipperzero-firmware/applications_user/CMakeLists.txt
