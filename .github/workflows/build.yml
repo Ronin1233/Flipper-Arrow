@@ -1,4 +1,4 @@
-name: Build Flipper App
+name: Build Flipper App (via CMake)
 
 on:
   push:
@@ -12,29 +12,22 @@ jobs:
       - name: Checkout your repo
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install ufbt
-        run: |
-          python3 -m pip install --upgrade pip
-          pip install flipperzero-ufbt
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Clone Flipper firmware
+      - name: Clone Flipper Firmware
         run: |
           git clone --depth 1 https://github.com/flipperdevices/flipperzero-firmware.git
-          mkdir -p .ufbt
-          echo "{\"firmware_path\": \"flipperzero-firmware\"}" > .ufbt/settings.json
 
-      - name: Build .fap
+      - name: Copy app into firmware
         run: |
-          ufbt fap
+          mkdir -p flipperzero-firmware/applications_user/flipper_arrow
+          cp *.c *.h CMakeLists.txt flipperzero-firmware/applications_user/flipper_arrow/
+
+      - name: Build with CMake
+        run: |
+          cd flipperzero-firmware
+          ./fbt fap_flipper_arrow
 
       - name: Upload .fap
         uses: actions/upload-artifact@v4
         with:
           name: flipper_arrow.fap
-          path: build/f7-firmware-D/.extapps/*.fap
+          path: flipperzero-firmware/build/f7-firmware-D/.extapps/flipper_arrow.fap
