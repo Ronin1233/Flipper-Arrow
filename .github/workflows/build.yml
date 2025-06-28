@@ -3,8 +3,6 @@ name: Build Flipper App
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
@@ -23,13 +21,13 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           pip install flipperzero-ufbt
-        # сохраняем путь к ufbt
-        shell: bash
 
-      - name: Build App
+      - name: Add uFBT to PATH
+        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Build app
         run: |
-          echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
-          ufbt init
+          ufbt init --firmware https://github.com/flipperdevices/flipperzero-firmware.git
           ufbt fap
 
       - name: Upload .fap file
