@@ -1,1 +1,8 @@
-add_application(flipper_arrow "flipper_arrow.c" "music.c")
+project(flipper_arrow)
+
+add_flipper_app(
+    flipper_arrow
+    "Flipper Arrow"
+    flipper_arrow.c
+    music.c
+)
