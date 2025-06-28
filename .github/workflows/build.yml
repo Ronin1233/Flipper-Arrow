@@ -1,4 +1,4 @@
-name: Build Flipper App (via CMake)
+name: Build Flipper App (Manual CMake)
 
 on:
   push:
@@ -9,6 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential git python3-pip ninja-build
+
       - name: Checkout your repo
         uses: actions/checkout@v3
 
@@ -21,10 +26,10 @@ jobs:
           mkdir -p flipperzero-firmware/applications_user/flipper_arrow
           cp *.c *.h CMakeLists.txt flipperzero-firmware/applications_user/flipper_arrow/
 
-      - name: Build with CMake
+      - name: Build .fap
         run: |
           cd flipperzero-firmware
-          ./fbt fap_flipper_arrow
+          ./fbt_tools/fbt fap_flipper_arrow
 
       - name: Upload .fap
         uses: actions/upload-artifact@v4
