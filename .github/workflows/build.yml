@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -22,9 +23,12 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           pip install flipperzero-ufbt
+        # сохраняем путь к ufbt
+        shell: bash
 
       - name: Build App
         run: |
+          echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
           ufbt init
           ufbt fap
 
