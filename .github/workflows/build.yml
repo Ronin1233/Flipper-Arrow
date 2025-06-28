@@ -21,10 +21,11 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/flipperdevices/flipperzero-firmware.git
 
-      - name: Copy app into firmware
-        run: |
-          mkdir -p flipperzero-firmware/applications_user/flipper_arrow
-          cp *.c *.h CMakeLists.txt flipperzero-firmware/applications_user/flipper_arrow/
+- name: Copy app into firmware
+  run: |
+    mkdir -p flipperzero-firmware/applications_user/flipper_arrow
+    cp flipper_arrow.c music.c music.h flipperzero-firmware/applications_user/flipper_arrow/
+    cp CMakeLists.txt flipperzero-firmware/applications_user/flipper_arrow/CMakeLists.txt
 
       - name: Register app in CMake
         run: |
