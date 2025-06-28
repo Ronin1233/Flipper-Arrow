@@ -1,0 +1,1 @@
+add_application(flipper_arrow "flipper_arrow.c" "music.c")
