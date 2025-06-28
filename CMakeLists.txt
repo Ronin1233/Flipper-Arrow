@@ -1,3 +1,4 @@
+include(apps.cmake)
 project(flipper_arrow)
 
 add_flipper_app(
