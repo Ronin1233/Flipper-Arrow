@@ -30,12 +30,12 @@ jobs:
 
       - name: Configure and build
         run: |
-          cd flipperzero-firmware
-          cmake -S . -B build/f7-firmware-D -GNinja -DFLIPPER_TARGET=F7
-          cmake --build build/f7-firmware-D --target flipper_arrow
+          cd flipperzero-firmware/firmware
+          cmake -S . -B build -GNinja -DFLIPPER_TARGET=F7
+          cmake --build build --target flipper_arrow
 
       - name: Upload .fap
         uses: actions/upload-artifact@v4
         with:
           name: flipper_arrow.fap
-          path: flipperzero-firmware/build/f7-firmware-D/.extapps/flipper_arrow.fap
+          path: flipperzero-firmware/firmware/build/.extapps/flipper_arrow.fap
