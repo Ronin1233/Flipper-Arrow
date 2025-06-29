@@ -19,7 +19,7 @@ jobs:
 
       - name: Clone Flipper Firmware
         run: |
-          git clone --depth 1 https://github.com/flipperdevices/flipperzero-firmware.git
+          git clone --depth 1 --branch release https://github.com/flipperdevices/flipperzero-firmware.git
 
       - name: Copy app into firmware
         run: |
